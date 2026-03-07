@@ -51,8 +51,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const initAuth = async () => {
-      const storedToken = localStorage.getItem('urbanmind_token');
-      const storedUser = localStorage.getItem('urbanmind_user');
+      const storedToken = localStorage.getItem('nagarsetu_token');
+      const storedUser = localStorage.getItem('nagarsetu_user');
 
       if (storedToken && storedUser) {
         setToken(storedToken);
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         try {
           const response = await authApi.getMe();
           setUser(response.data.user);
-          localStorage.setItem('urbanmind_user', JSON.stringify(response.data.user));
+          localStorage.setItem('nagarsetu_user', JSON.stringify(response.data.user));
 
           try {
             // Check if there's an existing OneSignal user before attempting login
@@ -75,8 +75,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
           await syncDeviceToken();
         } catch {
-          localStorage.removeItem('urbanmind_token');
-          localStorage.removeItem('urbanmind_user');
+          localStorage.removeItem('nagarsetu_token');
+          localStorage.removeItem('nagarsetu_user');
           setToken(null);
           setUser(null);
         }
@@ -143,8 +143,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const response = await authApi.login({ email, password });
     setToken(response.data.token);
     setUser(response.data.user);
-    localStorage.setItem('urbanmind_token', response.data.token);
-    localStorage.setItem('urbanmind_user', JSON.stringify(response.data.user));
+    localStorage.setItem('nagarsetu_token', response.data.token);
+    localStorage.setItem('nagarsetu_user', JSON.stringify(response.data.user));
     
     void (async () => {
       try {
@@ -182,7 +182,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async () => {
     // Store token for the API call
-    const storedToken = localStorage.getItem('urbanmind_token');
+    const storedToken = localStorage.getItem('nagarsetu_token');
     
     // Fire-and-forget: server-side cleanup should not block UI
     try {
@@ -199,13 +199,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Clear local state after API call
     setToken(null);
     setUser(null);
-    localStorage.removeItem('urbanmind_token');
-    localStorage.removeItem('urbanmind_user');
+    localStorage.removeItem('nagarsetu_token');
+    localStorage.removeItem('nagarsetu_user');
   };
 
   const updateUser = (updatedUser: User) => {
     setUser(updatedUser);
-    localStorage.setItem('urbanmind_user', JSON.stringify(updatedUser));
+    localStorage.setItem('nagarsetu_user', JSON.stringify(updatedUser));
   };
 
   return (

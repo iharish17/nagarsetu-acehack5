@@ -13,7 +13,7 @@ const api = axios.create({
 // Request interceptor to add token
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('urbanmind_token');
+    const token = localStorage.getItem('nagarsetu_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -38,12 +38,12 @@ api.interceptors.response.use(
       requestUrl.includes('/auth/request-email-otp') ||
       requestUrl.includes('/auth/verify-email-otp');
 
-    const storedToken = localStorage.getItem('urbanmind_token');
+    const storedToken = localStorage.getItem('nagarsetu_token');
 
     // Only treat 401 as "session expired" when a token exists and this wasn't an auth call.
     if (status === 401 && storedToken && !isAuthRoute) {
-      localStorage.removeItem('urbanmind_token');
-      localStorage.removeItem('urbanmind_user');
+      localStorage.removeItem('nagarsetu_token');
+      localStorage.removeItem('nagarsetu_user');
 
       if (window.location.pathname !== '/login') {
         window.location.href = '/login';
@@ -55,7 +55,7 @@ api.interceptors.response.use(
     // If a previously-authenticated session becomes blocked due to email verification,
     // clear local auth state and redirect to the verification page.
     if (status === 403 && code === 'EMAIL_NOT_VERIFIED' && storedToken && !isAuthRoute) {
-      const storedUser = localStorage.getItem('urbanmind_user');
+      const storedUser = localStorage.getItem('nagarsetu_user');
       let emailParam = '';
       try {
         const parsed = storedUser ? JSON.parse(storedUser) : null;
@@ -66,8 +66,8 @@ api.interceptors.response.use(
         // Ignore parse errors
       }
 
-      localStorage.removeItem('urbanmind_token');
-      localStorage.removeItem('urbanmind_user');
+      localStorage.removeItem('nagarsetu_token');
+      localStorage.removeItem('nagarsetu_user');
       window.location.href = `/verify-email${emailParam}`;
       toast.error('Please verify your email to continue.');
     }

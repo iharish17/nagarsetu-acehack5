@@ -28,7 +28,7 @@ app.use('/api', routes);
 // Root route
 app.get('/', (req, res) => {
   res.json({
-    message: 'UrbanMind API Server',
+    message: 'NagarSetu API Server',
     version: '1.0.0',
     documentation: '/api/health',
   });

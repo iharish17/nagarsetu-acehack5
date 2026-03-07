@@ -3,7 +3,7 @@ const cloudinary = require('../config/cloudinary');
 /**
  * Upload image to Cloudinary
  */
-const uploadImage = async (buffer, folder = 'urbanmind/issues') => {
+const uploadImage = async (buffer, folder = 'nagarsetu/issues') => {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       {

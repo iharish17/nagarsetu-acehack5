@@ -27,7 +27,7 @@ const upload = multer({
 });
 
 // Upload buffer to Cloudinary
-const uploadToCloudinary = (buffer, folder = 'urbanmind/issues') => {
+const uploadToCloudinary = (buffer, folder = 'nagarsetu/issues') => {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       {

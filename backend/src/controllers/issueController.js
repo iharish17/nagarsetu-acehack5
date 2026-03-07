@@ -379,7 +379,7 @@ exports.updateStatus = async (req, res, next) => {
         for (const file of req.files) {
           const result = await cloudinaryService.uploadImage(
             file.buffer,
-            'urbanmind/resolutions'
+            'nagarsetu/resolutions'
           );
           resolutionImages.push(result);
         }
